@@ -1,7 +1,5 @@
-import numpy as np
 import pandas as pd
 import geopandas as gp
-from shapely import Point
 import matplotlib.pyplot as plt
 
 map = gp.read_file('md_cong_adopted_2022.zip')
