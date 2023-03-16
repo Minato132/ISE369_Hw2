@@ -29,5 +29,6 @@ reps = reps.groupby(by = 'District', as_index = False).max()
 
 diff = dems['Primary Dec'] - reps['Primary Dec']
 
-map.plot(column = diff, cmap =)
+map.plot(column = diff, cmap = 'Greens')
+plt.show()
 print(diff)
