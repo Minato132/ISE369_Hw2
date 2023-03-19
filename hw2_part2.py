@@ -4,44 +4,26 @@ import matplotlib.pyplot as plt
 
 map = gp.read_file('md_cong_adopted_2022.zip')
 
-with open('md_2022_primary_cand_data.csv') as file:
-    data = pd.read_csv(file)
-
-data = data.loc[:, ['Party', 'District', 'Primary %']]
-x = []
-for i in data['Primary %']:
-    i = i.replace('%', '')
-    x.append(float(i)/ 100)
-
-data['Primary Dec'] = x
-data.dropna(inplace = True)
-
-# The Dems
-
-dems = data.loc[data['Party'] == 'DEM']
-dems = dems.groupby(by = 'District', as_index = False).max()
-
-
-# The Rep
-
-reps = data.loc[data['Party'] == 'REP']
-reps = reps.groupby(by = 'District', as_index = False).max()
-
-diff = dems['Primary Dec'] - reps['Primary Dec']
+dem = pd.Series([43.2, 59.3, 60.2, 90.3, 66.0, 54.8, 82.2, 80.3,])
+rep = pd.Series([54.5, 40.7, 39.8, 9.7, 34.0, 45.2, 17.8, 18.2 ])
+d = {'dem':dem, "rep":rep}
+data = pd.DataFrame(d)
+diff = data['dem'] - data['rep']
+print(diff)
 
 def colors(arg):
     if arg < 0:
-        if arg > -.05:
+        if arg > -5:
             x = [1,0,0,.2]
-        elif -.1 > arg > -.05:
+        elif -10 > arg > -5:
             x = [1,0,0,.5]
         else:
             x = [1,0,0,1]
         
     else:
-        if arg < .05:
+        if arg < 5:
             x = [0,0,1,.2]
-        elif .05 < arg < .1:
+        elif 5 < arg < 10:
             x = [0,0,1,.5]
         else:
             x = [0,0,1,1]
@@ -60,8 +42,8 @@ def distr(arg1, arg2):
     for i in range(len(arg1)):
         base = dis(arg1)[i].plot(ax = base, edgecolor = 'black', color = colors(arg2[i]))
     
-    plt.title('Marginal Victory between Democrats & Republicans')
+    plt.title('Marginal Victory between Democrats and Republicans \nIn Maryland')
     plt.show()
 
-print(diff)
+
 print(distr(map, diff))
