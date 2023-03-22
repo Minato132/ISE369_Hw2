@@ -19,7 +19,9 @@ for i in range(len(data_sum)):
 
 map['diff'] = data_sum
 
-map.plot(column = 'diff', cmap = 'Greens', legend = True)
-plt.title('Contributions from MD Districts \nNormalized to Median')
+map.plot(column = 'diff', cmap = 'Greens', legend = True, 
+         legend_kwds = {'label' : 'Contributions by District \n Normalized to median',
+                        'orientation': 'horizontal'})
+plt.title('Contributions by each MD Districts')
 plt.show()
 print(data_sum)
